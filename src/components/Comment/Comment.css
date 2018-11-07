@@ -2,7 +2,7 @@ div.comment {
   padding: 10px;
 }
 
-div.comment:nth-child(even) {
+div.comment:nth-child(odd) {
   background-color: rgb(230, 234, 237);
 }
 
