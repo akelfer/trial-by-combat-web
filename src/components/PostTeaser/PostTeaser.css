@@ -1,0 +1,22 @@
+span.author {
+  cursor: pointer;
+  color: #002DF5;
+}
+
+span.author:hover {
+  color: rgb(25, 11, 116);
+}
+
+p.submissionInfo {
+  font-size: 12px;
+}
+
+a.postLink {
+  text-decoration: none;
+  color: #002DF5;
+}
+
+a.postLink:hover {
+  text-decoration: none;
+  color: rgb(0, 23, 126);
+}

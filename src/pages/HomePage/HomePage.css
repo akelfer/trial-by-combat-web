@@ -1,0 +1,4 @@
+div.homePage {
+  display: flex;
+  flex-direction: row;
+}

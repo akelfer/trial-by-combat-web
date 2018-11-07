@@ -1,0 +1,20 @@
+div.vote {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  text-align: center;
+}
+
+div.vote > img {
+  cursor: pointer;
+  width: 14px;
+  height: auto;
+}
+
+div.up {
+  color: #F19069;
+}
+
+div.down {
+  color: #9097F8;
+}

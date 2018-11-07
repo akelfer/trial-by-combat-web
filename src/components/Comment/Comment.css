@@ -1,0 +1,11 @@
+div.comment {
+  padding: 10px;
+}
+
+div.comment:nth-child(even) {
+  background-color: rgb(230, 234, 237);
+}
+
+time {
+  color: rgb(171, 169, 169);
+}
