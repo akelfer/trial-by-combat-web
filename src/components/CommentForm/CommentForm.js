@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
-import { Redirect } from 'react-router-dom';
 
 import CommentApi from '../../api/CommentApi';
 
@@ -18,7 +17,10 @@ export default class CommentForm extends Component {
 
     const commentObj = {body: this.state.body, post_id: this.props.postId, avatar_id: this.props.avatar.id}
     
-    CommentApi.createComment(commentObj).then(newComment => this.props.handleNewComment(newComment))
+    CommentApi.createComment(commentObj).then(newComment => {
+      console.log(newComment)
+      this.props.handleNewComment(newComment)
+    })
     
     this.setState({ body: ''})
   }
