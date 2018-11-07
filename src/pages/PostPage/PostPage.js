@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import TimeAgo from 'react-timeago';
 
 import './PostPage.css';
 import PostApi from '../../api/PostApi';
+import Post from '../../components/Post/Post';
 import Comment from '../../components/Comment/Comment';
 import CommentForm from '../../components/CommentForm/CommentForm';
-import Vote from '../../components/Vote/Vote';
 
-export default class Post extends Component {
+export default class PostPage extends Component {
   state = {
     post: {},
     comments: []
@@ -19,7 +18,7 @@ export default class Post extends Component {
 
   displayComments = () => {
     return this.state.comments.map(comment => {
-      return <Comment key={comment.id} comment={comment} />
+      return <Comment key={comment.id} comment={comment} avatar={this.props.avatar}/>
     })
   }
 
@@ -34,14 +33,7 @@ export default class Post extends Component {
   render() {
     return (
       <div className="post page m-5">
-        <div className="postHeader">
-          <Vote score={this.state.post.score}/>
-          <div className="postContent">
-            <h4>{this.state.post.title}</h4>
-            <p className="submissionInfo ml-1">Submitted <TimeAgo date={this.state.post.created_at}/> by <span className="author">{this.state.post.author}</span></p>
-            <p>{this.state.post.body}</p>
-          </div>
-        </div>
+        <Post post={this.state.post} avatar={this.props.avatar}/>
         <hr />
         <CommentForm avatar={this.props.avatar} postId={this.props.match.params.post_id} handleNewComment={this.handleNewComment}/>
         {this.displayComments()}

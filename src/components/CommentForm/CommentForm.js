@@ -16,12 +16,16 @@ export default class CommentForm extends Component {
     e.preventDefault();
 
     const commentObj = {body: this.state.body, post_id: this.props.postId, avatar_id: this.props.avatar.id}
-    
-    CommentApi.createComment(commentObj).then(newComment => {
-      console.log(newComment)
-      this.props.handleNewComment(newComment)
-    })
-    
+
+    if (this.state.body === '') {
+      alert('Field cannot be left empty!')
+    } else {
+      CommentApi.createComment(commentObj).then(newComment => {
+        console.log(newComment)
+        this.props.handleNewComment(newComment)
+      })
+    } 
+
     this.setState({ body: ''})
   }
 

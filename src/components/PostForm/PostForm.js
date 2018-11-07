@@ -21,7 +21,11 @@ export default class PostForm extends Component {
     
     const userObj = {title: this.state.title, body: this.state.body, avatar_id: this.props.avatar.id}
 
-    PostApi.createPost(userObj).then(newPost => this.setState({ newPost: newPost }))
+    if (this.state.title === '' || this.state.body === '') {
+      alert('Field cannot be left empty!')
+    } else {
+      PostApi.createPost(userObj).then(newPost => this.setState({ newPost: newPost }))
+    }
   }
 
   render() {

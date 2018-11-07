@@ -1,9 +1,14 @@
-div.postHeader {
-  display: flex;
-  flex-direction: row;
+span.edit {
+  color: red;
+  font-size: 12px;
+  margin-left: 20px;
+  cursor: pointer;
 }
 
-div.postContent {
-  display: flex;
-  flex-direction: column;
+span.edit:hover {
+  color: darkred;
+}
+
+span.hide {
+  display: none;
 }

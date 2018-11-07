@@ -30,6 +30,7 @@ class App extends Component {
   }
   
   render() {
+    console.log(this.state.avatar)
     const renderHomePage = () => {
       return <HomePage user={this.state.user} avatar={this.state.avatar} handleNewAvatar={this.handleNewAvatar}/>
     }
