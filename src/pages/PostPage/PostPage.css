@@ -8,7 +8,3 @@ span.edit {
 span.edit:hover {
   color: darkred;
 }
-
-span.hide {
-  display: none;
-}

@@ -22,6 +22,10 @@ export default class PostPage extends Component {
     })
   }
 
+  handleUpdatedPost = updatedPost => {
+    this.setState({ post: updatedPost })
+  }
+
   handleNewComment = newComment => {
     let updatedComments = [...this.state.comments]
 
@@ -33,7 +37,7 @@ export default class PostPage extends Component {
   render() {
     return (
       <div className="post page m-5">
-        <Post post={this.state.post} avatar={this.props.avatar}/>
+        <Post post={this.state.post} avatar={this.props.avatar} history={this.props.history} handleUpdatedPost={this.handleUpdatedPost}/>
         <hr />
         <CommentForm avatar={this.props.avatar} postId={this.props.match.params.post_id} handleNewComment={this.handleNewComment}/>
         {this.displayComments()}

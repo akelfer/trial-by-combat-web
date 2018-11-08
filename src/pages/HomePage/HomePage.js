@@ -14,12 +14,12 @@ export default class HomePage extends Component {
     PostApi.fetchPosts().then(posts => {
       this.setState({ posts: posts })
     })
-  }
+  }    
 
   render() {
     return (
       <div className="homePage">
-        <PostList posts={this.state.posts}/>
+        <PostList posts={this.state.posts} />
         <Dashboard user={this.props.user} avatar={this.props.avatar} handleNewAvatar={this.props.handleNewAvatar}/>
       </div>
     )

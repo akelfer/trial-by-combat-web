@@ -30,13 +30,12 @@ class App extends Component {
   }
   
   render() {
-    console.log(this.state.avatar)
     const renderHomePage = () => {
       return <HomePage user={this.state.user} avatar={this.state.avatar} handleNewAvatar={this.handleNewAvatar}/>
     }
 
     const renderPostPage = props => {
-      return <PostPage avatar={this.state.avatar} match={props.match}/>
+      return <PostPage avatar={this.state.avatar} match={props.match} history={props.history} />
     }
 
     const renderPostForm = () => {
