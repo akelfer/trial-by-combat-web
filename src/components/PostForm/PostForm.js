@@ -3,7 +3,7 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 
 import './PostForm.css';
-import PostApi from '../../api/PostApi';
+import PostAPI from '../../api/PostAPI';
 
 export default class PostForm extends Component {
   state = {
@@ -24,7 +24,7 @@ export default class PostForm extends Component {
     if (this.state.title === '' || this.state.body === '') {
       alert('Field cannot be left empty!')
     } else {
-      PostApi.createPost(userObj).then(newPost => this.setState({ newPost: newPost }))
+      PostAPI.createPost(userObj).then(newPost => this.setState({ newPost: newPost }))
     }
   }
 

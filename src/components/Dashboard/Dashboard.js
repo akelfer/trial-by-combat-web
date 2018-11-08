@@ -3,7 +3,7 @@ import { Form, Label, Input, Button } from 'reactstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import './Dashboard.css';
-import UserApi from '../../api/UserApi';
+import UserAPI from '../../api/UserAPI';
 
 export default class Dashboard extends Component {
   state = {
@@ -22,7 +22,7 @@ export default class Dashboard extends Component {
     } else if (this.state.name === '') {
       alert("Name cannot be empty")
     } else {
-      UserApi.createAvatar(this.props.user.id, this.state.name).then(response => {
+      UserAPI.createAvatar(this.props.user.id, this.state.name).then(response => {
         if (response.error) {
           alert(response.error)
         } else {

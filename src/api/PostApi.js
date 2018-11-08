@@ -5,6 +5,14 @@ const fetchPosts = () => {
     .then(res => res.json())
 }
 
+const fetchPostsByAvatar = avatarId => {
+  return fetch(`${POST_URL}/${avatarId}`, {
+    method: 'POST',
+    headers: {'content-type': 'application/json'}
+  })
+    .then(res => res.json())
+}
+
 const fetchPost = postId => {
   return fetch(`${POST_URL}/${postId}`)
     .then(res => res.json())
@@ -37,6 +45,7 @@ const deletePost = post => {
 
 export default {
   fetchPosts: fetchPosts,
+  fetchPostsByAvatar: fetchPostsByAvatar,
   fetchPost: fetchPost,
   createPost: createPost,
   updatePost: updatePost,

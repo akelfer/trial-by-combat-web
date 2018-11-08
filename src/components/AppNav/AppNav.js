@@ -12,7 +12,7 @@ import {
 import { LinkContainer } from 'react-router-bootstrap';
 
 import './AppNav.css';
-import UserApi from '../../api/UserApi';
+import UserAPI from '../../api/UserAPI';
 
 export default class AppNav extends Component {
   state = {
@@ -23,7 +23,7 @@ export default class AppNav extends Component {
     let state = this.state
     global.onSignIn = googleUser => {
       const userEmail = googleUser.getBasicProfile().U3
-      UserApi.loginUser(userEmail).then(userData => {
+      UserAPI.loginUser(userEmail).then(userData => {
         this.props.handleSignIn(userData)
         this.setState({ state })
       })

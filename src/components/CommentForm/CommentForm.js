@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
-import CommentApi from '../../api/CommentApi';
+import CommentAPI from '../../api/CommentAPI';
 
 export default class CommentForm extends Component {
   state = {
@@ -20,7 +20,7 @@ export default class CommentForm extends Component {
     if (this.state.body === '') {
       alert('Field cannot be left empty!')
     } else {
-      CommentApi.createComment(commentObj).then(newComment => {
+      CommentAPI.createComment(commentObj).then(newComment => {
         this.props.handleNewComment(newComment)
       })
     } 

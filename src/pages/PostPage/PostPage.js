@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import './PostPage.css';
-import PostApi from '../../api/PostApi';
+import PostAPI from '../../api/PostAPI';
 import Post from '../../components/Post/Post';
 import Comment from '../../components/Comment/Comment';
 import CommentForm from '../../components/CommentForm/CommentForm';
@@ -13,7 +13,7 @@ export default class PostPage extends Component {
   }
 
   componentDidMount() {
-    PostApi.fetchPost(this.props.match.params.post_id).then(data => this.setState({ post: data.post, comments: data.comments }))
+    PostAPI.fetchPost(this.props.match.params.post_id).then(data => this.setState({ post: data.post, comments: data.comments }))
   }
 
   displayComments = () => {

@@ -5,7 +5,7 @@ import TimeAgo from 'react-timeago';
 
 import './Post.css';
 import Vote from '../../components/Vote/Vote';
-import PostApi from '../../api/PostApi';
+import PostAPI from '../../api/PostAPI';
 
 
 export default class Post extends Component { 
@@ -27,7 +27,7 @@ export default class Post extends Component {
 
     const postObj = {body: this.state.body, avatar_id: this.props.avatar.id}
 
-    PostApi.updatePost(postObj, this.props.post.id).then(updatedPost => {
+    PostAPI.updatePost(postObj, this.props.post.id).then(updatedPost => {
       this.props.handleUpdatedPost(updatedPost)
       this.setState({ editing: false })
     })
@@ -39,7 +39,7 @@ export default class Post extends Component {
 
   handleDelete = () => {
     if (window.confirm('Are you sure you want to delete this post?')) {
-      PostApi.deletePost(this.props.post).then(response => {
+      PostAPI.deletePost(this.props.post).then(response => {
         console.log(response)
         this.props.history.push('/')
       })
