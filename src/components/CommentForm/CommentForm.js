@@ -13,7 +13,7 @@ export default class CommentForm extends Component {
   }
 
   handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault()
 
     const commentObj = {body: this.state.body, post_id: this.props.postId, avatar_id: this.props.avatar.id}
 
@@ -21,7 +21,6 @@ export default class CommentForm extends Component {
       alert('Field cannot be left empty!')
     } else {
       CommentApi.createComment(commentObj).then(newComment => {
-        console.log(newComment)
         this.props.handleNewComment(newComment)
       })
     } 
@@ -30,16 +29,16 @@ export default class CommentForm extends Component {
   }
 
   render() {
-      return (
-        <div className="commentForm m-3">
-          <Form autoComplete="off" onSubmit={this.handleSubmit}>
-            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-              <Label className="mr-sm-2">Post new comment:</Label>
-              <Input type="textarea" name="body" onChange={this.handleChange} value={this.state.body}/>
-            </FormGroup>
-            <Button color="primary" className="mt-2">Submit</Button>
-        </Form>
-        </div>
-      )
-    }
+    return (
+      <div className="commentForm m-3">
+        <Form autoComplete="off" onSubmit={this.handleSubmit}>
+          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+            <Label className="mr-sm-2">Post new comment:</Label>
+            <Input type="textarea" name="body" onChange={this.handleChange} value={this.state.body}/>
+          </FormGroup>
+          <Button color="primary" className="mt-2">Submit</Button>
+      </Form>
+      </div>
+    )
   }
+}

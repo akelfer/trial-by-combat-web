@@ -17,7 +17,7 @@ export default class PostForm extends Component {
   }
 
   handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault()
     
     const userObj = {title: this.state.title, body: this.state.body, avatar_id: this.props.avatar.id}
 
@@ -33,7 +33,7 @@ export default class PostForm extends Component {
       return <Redirect to={`/posts/${this.state.newPost.id}`} />
     } else {
       return (
-        <div className="postForm m-3">
+        <div className="postForm m-5">
           <Form autoComplete="off" onSubmit={this.handleSubmit}>
           <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
             <Label className="mr-sm-2">Title</Label>

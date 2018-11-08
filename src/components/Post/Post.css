@@ -1,9 +1,11 @@
 div.postHeader {
   display: flex;
   flex-direction: row;
+  padding-right: 44px;
 }
 
 div.postContent {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }

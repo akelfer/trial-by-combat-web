@@ -9,7 +9,7 @@ import CommentForm from '../../components/CommentForm/CommentForm';
 export default class PostPage extends Component {
   state = {
     post: {},
-    comments: []
+    comments: []    
   }
 
   componentDidMount() {
@@ -18,11 +18,12 @@ export default class PostPage extends Component {
 
   displayComments = () => {
     return this.state.comments.map(comment => {
-      return <Comment key={comment.id} comment={comment} avatar={this.props.avatar}/>
+      return <Comment key={comment.id} comment={comment} avatar={this.props.avatar} handleDeletedComment={this.handleDeletedComment} handleUpdatedComment={this.handleUpdatedComment}/>
     })
   }
 
   handleUpdatedPost = updatedPost => {
+    updatedPost = {...updatedPost, author: this.state.post.author, author_rep: this.state.post.author_rep}
     this.setState({ post: updatedPost })
   }
 
@@ -30,6 +31,23 @@ export default class PostPage extends Component {
     let updatedComments = [...this.state.comments]
 
     updatedComments.unshift(newComment)
+
+    this.setState({ comments: updatedComments })
+  }
+
+  handleUpdatedComment = updatedComment => {
+    let updatedComments = [...this.state.comments]
+    let commentIndex = updatedComments.findIndex(comment => comment.id === updatedComment.id)
+    
+    updatedComments[commentIndex] = updatedComment
+
+    this.setState({ comments: updatedComments })
+  }
+
+  handleDeletedComment = deletedComment => {
+    let updatedComments = [...this.state.comments]
+
+    updatedComments.splice(updatedComments.indexOf(deletedComment), 1)
 
     this.setState({ comments: updatedComments })
   }

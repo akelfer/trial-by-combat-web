@@ -51,7 +51,7 @@ class App extends Component {
           <Route exact path="/create-post" render={renderPostForm} />
         </div>
       </BrowserRouter>
-    );
+    )
   }
 }
 
