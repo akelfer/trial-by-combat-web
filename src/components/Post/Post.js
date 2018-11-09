@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import TimeAgo from 'react-timeago';
 
 import { connect } from 'react-redux';
-import { setPost } from '../../redux/actions';
+import { setPosts, setPost } from '../../redux/actions';
 
 import './Post.css';
 import Vote from '../../components/Vote/Vote';
@@ -51,6 +51,13 @@ class Post extends Component {
     if (window.confirm('Are you sure you want to delete this post?')) {
       PostAPI.deletePost(this.props.post).then(response => {
         console.log(response)
+        let updatedPosts = [...this.props.posts]
+        let postIndex = updatedPosts.findIndex(post => post.id === this.props.post.id)
+
+        updatedPosts.splice(postIndex, 1)
+        
+        this.props.dispatch(setPosts(updatedPosts))
+        
         this.setState({ redirect: true })
       })
     }
@@ -62,7 +69,7 @@ class Post extends Component {
     } else {
       return (
         <div className="postHeader">
-          <Vote score={this.props.post.score}/>
+          <Vote score={this.props.post.score} vote={{direction: 1}}/>
           <div className="postContent">
             <h4>{this.props.post.title}<span className={this.props.avatar && this.props.avatar.id === this.props.post.avatar_id ? "edit" : "hide"} onClick={this.handleEdit}>[Edit]</span><span className={this.props.avatar && this.props.avatar.id === this.props.post.avatar_id ? "edit" : "hide"} onClick={this.handleDelete}>[Delete]</span></h4>
             <p className="submissionInfo ml-1">Submitted <TimeAgo date={this.props.post.created_at}/> by <span className="author">{this.props.post.author}</span></p>

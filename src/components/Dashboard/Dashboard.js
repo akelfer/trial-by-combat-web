@@ -25,12 +25,13 @@ class Dashboard extends Component {
     } else if (this.state.name === '') {
       alert("Name cannot be empty")
     } else {
-      UserAPI.createAvatar(this.props.user.id, this.state.name).then(newAvatar => {
-        if (newAvatar.error) {
-          alert(newAvatar.error)
-        } else {
-          this.props.dispatch(setAvatar(newAvatar))
-          this.setState({ name: '' })
+      UserAPI.createAvatar(this.props.user.id, this.state.name)
+        .then(newAvatar => {
+          if (newAvatar.error) {
+            alert(newAvatar.error)
+          } else {
+            this.props.dispatch(setAvatar(newAvatar))
+            this.setState({ name: '' })
         }
       })
     }    

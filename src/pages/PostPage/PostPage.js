@@ -23,6 +23,7 @@ class PostPage extends Component {
   }
   
   render() {
+    console.log(this.props)
     return (
       <div className="post page m-5">
         <Post post={this.props.post} avatar={this.props.avatar} />

@@ -9,7 +9,7 @@ export default class PostList extends Component {
     return this.props.posts.map((post, index) => {
       return (
         <div className="postBlock" key={post.id}>
-          <Vote score={post.score} avatar={this.props.avatar} contentType="Post" contentId={post.id} vote={post.vote} handleVote={this.props.handleVote} postIndex={index}/>
+          <Vote contentType="Post" contentId={post.id} vote={post.vote} score={post.score} postIndex={index} />
           <PostTeaser post={post} />
         </div>
       )

@@ -3,6 +3,7 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
+import { setPosts } from '../../redux/actions';
 
 import './PostForm.css';
 import PostAPI from '../../api/PostAPI';
@@ -26,7 +27,11 @@ class PostForm extends Component {
     if (this.state.title === '' || this.state.body === '') {
       alert('Field cannot be left empty!')
     } else {
-      PostAPI.createPost(userObj).then(_newPost => this.setState({ redirect: true }))
+      PostAPI.createPost(userObj)
+        .then(newPost => {
+          this.props.dispatch(setPosts([newPost, ...this.props.posts]))
+          this.setState({ redirect: true })
+        })
     }
   }
 

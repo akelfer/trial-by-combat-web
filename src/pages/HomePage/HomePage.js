@@ -10,9 +10,12 @@ import Dashboard from '../../components/Dashboard/Dashboard';
 
 class HomePage extends Component {
   componentDidMount() {
-    PostAPI.fetchPosts().then(posts => {
-      this.props.dispatch(setPosts(posts))
-    })
+    if (!this.props.posts) {
+      PostAPI.fetchPosts()
+        .then(posts => {
+          this.props.dispatch(setPosts(posts))
+      })
+    }
   }
 
   render() {
