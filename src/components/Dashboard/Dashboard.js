@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { Form, Label, Input, Button } from 'reactstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
+import { connect } from 'react-redux';
+import { setAvatar } from '../../redux/actions';
+
 import './Dashboard.css';
 import UserAPI from '../../api/UserAPI';
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
   state = {
     name: ''
   }
@@ -22,12 +25,12 @@ export default class Dashboard extends Component {
     } else if (this.state.name === '') {
       alert("Name cannot be empty")
     } else {
-      UserAPI.createAvatar(this.props.user.id, this.state.name).then(response => {
-        if (response.error) {
-          alert(response.error)
+      UserAPI.createAvatar(this.props.user.id, this.state.name).then(newAvatar => {
+        if (newAvatar.error) {
+          alert(newAvatar.error)
         } else {
+          this.props.dispatch(setAvatar(newAvatar))
           this.setState({ name: '' })
-          this.props.handleNewAvatar(response)
         }
       })
     }    
@@ -55,3 +58,9 @@ export default class Dashboard extends Component {
     }
   }
 }
+
+const mapStateToProps = state => {
+  return state
+}
+
+export default connect(mapStateToProps)(Dashboard);

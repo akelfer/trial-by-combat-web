@@ -12,24 +12,22 @@ import CommentForm from '../../components/CommentForm/CommentForm';
 class PostPage extends Component {
   componentDidMount() {
     PostAPI.fetchPost(this.props.match.params.post_id).then(data => {
-      console.log(data)
-      this.props.dispatch(setPost(data))
+      this.props.dispatch(setPost(data.post, data.comments))
     })
   }
 
   displayComments = () => {
-    console.log(this.props.comments)
-    return this.props.comments.map(comment => {
-      return <Comment key={comment.id} comment={comment} avatar={this.props.avatar} handleDeletedComment={this.handleDeletedComment} handleUpdatedComment={this.handleUpdatedComment}/>
+    return this.props.comments.map((comment, index) => {
+      return <Comment key={comment.id} comment={comment} avatar={this.props.avatar} index={index}/>
     })
   }
   
   render() {
     return (
       <div className="post page m-5">
-        <Post post={this.props.post} avatar={this.props.avatar} history={this.props.history} handleUpdatedPost={this.handleUpdatedPost}/>
+        <Post post={this.props.post} avatar={this.props.avatar} />
         <hr />
-        <CommentForm avatar={this.props.avatar} postId={this.props.match.params.post_id} handleNewComment={this.handleNewComment}/>
+        <CommentForm avatar={this.props.avatar} postId={this.props.match.params.post_id} />
         {this.displayComments()}
       </div>
     )

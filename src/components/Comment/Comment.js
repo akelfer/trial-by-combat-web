@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { Form, Input } from 'reactstrap';
 import TimeAgo from 'react-timeago';
 
+import { connect } from 'react-redux';
+import { setComments } from '../../redux/actions';
+
 import './Comment.css';
 import CommentAPI from '../../api/CommentAPI';
 
-export default class Comment extends Component {
+class Comment extends Component {
   state = {
     body: '',
     editing: false
@@ -26,20 +29,31 @@ export default class Comment extends Component {
   handleSubmit = e => {
     e.preventDefault()
 
-    const commentObj = {body: this.state.body, avatar_id: this.props.avatar.id, post_id: this.props.comment.post_id}
+    if (this.state.body === '') {
+      alert('Field cannot be left blank!')
+    } else {
+      const commentObj = {body: this.state.body, avatar_id: this.props.avatar.id, post_id: this.props.comment.post_id}
 
     CommentAPI.editComment(commentObj, this.props.comment.id).then(updatedComment => {
-      this.props.handleUpdatedComment({...updatedComment, author: this.props.avatar.name, author_rep: this.props.avatar.reputation})
+      let updatedComments = [...this.props.comments]
+
+      updatedComments[this.props.index] = updatedComment
+
+      this.props.dispatch(setComments(updatedComments))
     })
 
     this.setState({ editing: false })
+    }    
   }
 
   handleDelete = () => {
     if (window.confirm('Are you sure you want to delete this comment?')) {
       CommentAPI.deleteComment(this.props.comment.id).then(response => {
-        console.log(response)
-        this.props.handleDeletedComment(this.props.comment)
+        let updatedComments = [...this.props.comments]
+
+        updatedComments.splice(this.props.index, 1)
+
+        this.props.dispatch(setComments(updatedComments))
       })
     }
   }
@@ -56,3 +70,9 @@ export default class Comment extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return state
+}
+
+export default connect(mapStateToProps)(Comment);
