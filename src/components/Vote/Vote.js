@@ -40,7 +40,7 @@ export default class Vote extends Component {
     }
   }
 
-  render() {
+  render() {    
     if (this.props.vote) {
       return (
         <div className="vote">

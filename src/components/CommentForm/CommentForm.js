@@ -15,11 +15,13 @@ export default class CommentForm extends Component {
   handleSubmit = e => {
     e.preventDefault()
 
-    const commentObj = {body: this.state.body, post_id: this.props.postId, avatar_id: this.props.avatar.id}
-
-    if (this.state.body === '') {
+    if (!this.props.avatar) {
+      alert('Only active avatars can comment on posts!')
+    } else if (this.state.body === '') {
       alert('Field cannot be left empty!')
     } else {
+      const commentObj = {body: this.state.body, post_id: this.props.postId, avatar_id: this.props.avatar.id}
+      
       CommentAPI.createComment(commentObj).then(newComment => {
         this.props.handleNewComment(newComment)
       })

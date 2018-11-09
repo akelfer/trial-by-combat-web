@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+import { setPosts } from '../../redux/actions';
+
 import './HomePage.css';
 import PostAPI from '../../api/PostAPI';
 import PostList from '../../components/PostList/PostList';
 import Dashboard from '../../components/Dashboard/Dashboard';
 
-export default class HomePage extends Component {
+class HomePage extends Component {
   state = {
-    posts: [],
     fetchedVotes: false
   }
 
   componentDidMount() {
-    PostAPI.fetchPosts().then(posts => this.setState({ posts: posts }))
+    PostAPI.fetchPosts().then(posts => {
+      this.props.dispatch(setPosts(posts))
+    })
   }
 
   componentDidUpdate() {
     if (this.props.avatar && this.state.fetchedVotes === false) {
       PostAPI.fetchPostsByAvatar(this.props.avatar.id).then(posts => {
+        this.props.dispatch(setPosts(posts))
         this.setState({ posts: posts, fetchedVotes: true })
       })
     }
@@ -32,11 +37,18 @@ export default class HomePage extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div className="homePage">
-        <PostList posts={this.state.posts} avatar={this.props.avatar} handleVote={this.handleVote}/>
+        <PostList posts={this.props.posts} avatar={this.props.avatar} handleVote={this.handleVote}/>
         <Dashboard user={this.props.user} avatar={this.props.avatar} handleNewAvatar={this.props.handleNewAvatar}/>
       </div>
     )
   }
 }
+
+const mapStateToProps = state => {
+  return state
+}
+
+export default connect(mapStateToProps)(HomePage);

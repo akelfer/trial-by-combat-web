@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import './PostPage.css';
 import PostAPI from '../../api/PostAPI';
@@ -6,7 +7,7 @@ import Post from '../../components/Post/Post';
 import Comment from '../../components/Comment/Comment';
 import CommentForm from '../../components/CommentForm/CommentForm';
 
-export default class PostPage extends Component {
+class PostPage extends Component {
   state = {
     post: {},
     comments: []    
@@ -63,3 +64,9 @@ export default class PostPage extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return state
+}
+
+export default connect(mapStateToProps)(PostPage);
