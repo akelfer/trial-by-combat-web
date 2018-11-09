@@ -11,27 +11,35 @@ import {
   DropdownItem } from 'reactstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
+import { connect } from 'react-redux';
+import { setUser } from '../../redux/actions';
+
 import './AppNav.css';
 import UserAPI from '../../api/UserAPI';
 
-export default class AppNav extends Component {
+class AppNav extends Component {
   state = {
     isOpen: false
   }
 
   componentDidMount() {
-    let state = this.state
     global.onSignIn = googleUser => {
       const userEmail = googleUser.getBasicProfile().U3
       UserAPI.loginUser(userEmail).then(userData => {
-        this.props.handleSignIn(userData)
-        this.setState({ state })
+        this.props.dispatch(setUser(userData))
       })
     }
   }
 
   toggleNav = () => {
     this.setState({ isOpen: !this.state.isOpen })
+  }
+
+  handleSignOut = () => {
+    const auth2 = window.gapi.auth2.getAuthInstance();
+    auth2.signOut().then(() => {
+      window.location.reload();
+    })
   }
 
   render() {
@@ -44,7 +52,6 @@ export default class AppNav extends Component {
           <NavbarToggler onClick={this.toggleNav} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   {this.props.user ? this.props.user.email : 'Sign In'}
@@ -52,7 +59,7 @@ export default class AppNav extends Component {
                 <DropdownMenu right>
                   <DropdownItem>
                     <div className={this.props.user ? "g-signin2 hide" : "g-signin2"} data-onsuccess="onSignIn"></div>
-                    <div className={this.props.user ? "g-signout" : "hide"} onClick={this.props.handleSignOut}>Sign Out</div>
+                    <div className={this.props.user ? "g-signout" : "hide"} onClick={this.handleSignOut}>Sign Out</div>
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
@@ -63,3 +70,9 @@ export default class AppNav extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return state
+}
+
+export default connect(mapStateToProps)(AppNav);

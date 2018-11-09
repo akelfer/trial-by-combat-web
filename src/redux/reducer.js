@@ -1,17 +1,22 @@
-import { SET_POSTS } from "./actions";
+import { SET_POSTS, SET_POST, SET_USER } from "./actions";
 
 const initialState = {
-  posts: []
+  posts: [],
+  post: {},
+  comments: []
 }
 
 function reducer(state = initialState, action) {
-  const newState = {...state}
   
   switch (action.type) {
     case SET_POSTS:
-      return {...newState, posts: action.payload}
+      return {...state, posts: action.payload}
+    case SET_USER:
+      return {...state, user: action.payload.user, avatar: action.payload.avatar}
+    case SET_POST:
+      return {...state, post: action.payload.post, comments: action.payload.comments}
     default:
-    return state
+      return state
   }
 }
 

@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { Form, Input } from 'reactstrap';
 import TimeAgo from 'react-timeago';
 
+import { connect } from 'react-redux';
+import { setPost } from '../../redux/actions';
 
 import './Post.css';
 import Vote from '../../components/Vote/Vote';
 import PostAPI from '../../api/PostAPI';
 
 
-export default class Post extends Component { 
+class Post extends Component { 
   state = {
     body: '',
     editing: false
@@ -28,8 +30,7 @@ export default class Post extends Component {
     const postObj = {body: this.state.body, avatar_id: this.props.avatar.id}
 
     PostAPI.updatePost(postObj, this.props.post.id).then(updatedPost => {
-      this.props.handleUpdatedPost(updatedPost)
-      this.setState({ editing: false })
+      this.props.dispatch(setPost(updatedPost))
     })
   }
 
@@ -62,3 +63,9 @@ export default class Post extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return state
+}
+
+export default connect(mapStateToProps)(Post);

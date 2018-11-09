@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 
+import { connect } from 'react-redux';
+
 import './PostForm.css';
 import PostAPI from '../../api/PostAPI';
 
-export default class PostForm extends Component {
+class PostForm extends Component {
   state = {
     title: '',
     body: '',
-    newPost: null,
+    redirect: false
   }
 
   handleChange = e => {
@@ -24,13 +26,13 @@ export default class PostForm extends Component {
     if (this.state.title === '' || this.state.body === '') {
       alert('Field cannot be left empty!')
     } else {
-      PostAPI.createPost(userObj).then(newPost => this.setState({ newPost: newPost }))
+      PostAPI.createPost(userObj).then(_newPost => this.setState({ redirect: true }))
     }
   }
 
   render() {
-    if (this.state.newPost) {
-      return <Redirect to={`/posts/${this.state.newPost.id}`} />
+    if (this.state.redirect) {
+      return <Redirect to="/" />
     } else {
       return (
         <div className="postForm m-5">
@@ -50,3 +52,9 @@ export default class PostForm extends Component {
     }
   }
 }
+
+const mapStateToProps = state => {
+  return state
+}
+
+export default connect(mapStateToProps)(PostForm);
