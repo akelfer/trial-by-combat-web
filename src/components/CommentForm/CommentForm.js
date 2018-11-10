@@ -36,6 +36,7 @@ class CommentForm extends Component {
               
               updatedComments.unshift(newComment)
               
+              this.setState({ body: ''})
               this.props.dispatch(setComments(updatedComments))
             })
         })

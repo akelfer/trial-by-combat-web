@@ -1,5 +1,7 @@
+const BASE_URL = 'http://localhost:3000'
+
 const loginUser = email => {
-  return fetch(`http://localhost:3000/users`, {
+  return fetch(`${BASE_URL}/users`, {
     method: 'POST',
     headers: {'content-type': 'application/json'},
     body: JSON.stringify({email: email})
@@ -8,7 +10,7 @@ const loginUser = email => {
 }
 
 const createAvatar = (userId, name) => {
-  return fetch('http://localhost:3000/avatars', {
+  return fetch(`${BASE_URL}/avatars`, {
     method: 'POST',
     headers: {'content-type': 'application/json'},
     body: JSON.stringify({user_id: userId, name: name})
@@ -16,7 +18,13 @@ const createAvatar = (userId, name) => {
     .then(res => res.json())
 }
 
+const fetchEnemies = avatarId => {
+  return fetch(`${BASE_URL}/enemies?avatar_id=${avatarId}`)
+    .then(res => res.json())
+}
+
 export default {
   loginUser: loginUser,
-  createAvatar: createAvatar
+  createAvatar: createAvatar,
+  fetchEnemies: fetchEnemies
 }

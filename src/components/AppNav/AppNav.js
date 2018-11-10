@@ -5,6 +5,8 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
+  NavItem,
+  NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -51,6 +53,11 @@ class AppNav extends Component {
           <NavbarToggler onClick={this.toggleNav} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
+              <NavItem>
+                <LinkContainer to="/enemies">
+                  <NavLink>Enemies</NavLink>
+                </LinkContainer>
+              </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   {this.props.user ? this.props.user.email : 'Sign In'}

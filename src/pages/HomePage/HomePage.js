@@ -13,12 +13,12 @@ class HomePage extends Component {
 
   componentDidMount() {
     if (this.props.avatar) {
-      PostAPI.fetchPostsByAvatar(this.props.avatar.id)
+      PostAPI.fetchPosts(this.props.avatar.id)
         .then(posts => {
           this.props.dispatch(setPosts(posts))
       })
     } else {
-      PostAPI.fetchPostsByAvatar(null)
+      PostAPI.fetchPosts(null)
         .then(posts => {
           this.props.dispatch(setPosts(posts))
       })
@@ -28,7 +28,7 @@ class HomePage extends Component {
 
   componentDidUpdate() {
     if (this.props.avatar && !this.state.fetchedWithVotes) {
-      PostAPI.fetchPostsByAvatar(this.props.avatar.id)
+      PostAPI.fetchPosts(this.props.avatar.id)
         .then(posts => {
           this.props.dispatch(setPosts(posts))
           this.setState({ fetchedWithVotes: true })

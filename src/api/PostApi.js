@@ -1,11 +1,6 @@
 const POST_URL = 'http://localhost:3000/posts'
 
-const fetchPosts = () => {
-  return fetch(`${POST_URL}`)
-    .then(res => res.json())
-}
-
-const fetchPostsByAvatar = avatarId => {
+const fetchPosts = avatarId => {
   return fetch(`${POST_URL}/${avatarId}`, {
     method: 'POST',
     headers: {'content-type': 'application/json'}
@@ -25,7 +20,7 @@ const createPost = postObj => {
     body: JSON.stringify(postObj)
   })
     .then(res => res.json())
-} 
+}
 
 const updatePost = (postObj, postId) => {
   return fetch(`${POST_URL}/${postId}`, {
@@ -45,7 +40,6 @@ const deletePost = post => {
 
 export default {
   fetchPosts: fetchPosts,
-  fetchPostsByAvatar: fetchPostsByAvatar,
   fetchPost: fetchPost,
   createPost: createPost,
   updatePost: updatePost,
