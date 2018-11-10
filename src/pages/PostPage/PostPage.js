@@ -8,6 +8,7 @@ import PostAPI from '../../api/PostAPI';
 import Post from '../../components/Post/Post';
 import Comment from '../../components/Comment/Comment';
 import CommentForm from '../../components/CommentForm/CommentForm';
+import CommentVote from '../../components/CommentVote/CommentVote';
 
 class PostPage extends Component {
   state = {
@@ -38,7 +39,12 @@ class PostPage extends Component {
 
   displayComments = () => {
     return this.props.comments.map((comment, index) => {
-      return <Comment key={comment.id} comment={comment} avatar={this.props.avatar} index={index}/>
+      return (
+        <div className="commentBlock" key={comment.id}>
+          <CommentVote comment={comment} contentId={comment.id} vote={comment.vote} score={comment.score}/>
+          <Comment comment={comment} index={index} />
+        </div>
+      )
     })
   }
   

@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 
 import './PostList.css';
 import PostTeaser from '../PostTeaser/PostTeaser';
-import Vote from '../Vote/Vote';
+import PostVote from '../PostVote/PostVote';
 
 export default class PostList extends Component {
   displayPosts = () => {
-    return this.props.posts.map((post, index) => {
+    return this.props.posts.map(post => {
       return (
         <div className="postBlock" key={post.id}>
-          <Vote contentType="Post" contentId={post.id} vote={post.vote} score={post.score} page="Home" />
+          <PostVote contentId={post.id} vote={post.vote} score={post.score} page="Home" />
           <PostTeaser post={post} />
         </div>
       )

@@ -1,22 +1,14 @@
-div.vote {
+div.commentVote {
   display: flex;
   flex-direction: column;
-  margin-right: 20px;
-  text-align: center;
+  margin: 16px 0 0 10px;
 }
 
-div.vote > img {
+div.commentVote > img {
   cursor: pointer;
-  width: 14px;
+  width: 16px;
   height: auto;
-}
-
-div.up {
-  color: #F19069;
-}
-
-div.down {
-  color: #9097F8;
+  margin: 4px
 }
 
 div.score1 {
@@ -25,4 +17,8 @@ div.score1 {
 
 div.score-1 {
   color: #9097F8;
+}
+
+div.score0 {
+  color: #b6b6b6
 }

@@ -8,3 +8,12 @@ span.edit {
 span.edit:hover {
   color: darkred;
 }
+
+div.commentBlock {
+  display: flex;
+  flex-direction: row;
+}
+
+div.commentBlock:nth-child(odd) {
+  background-color: rgb(230, 234, 237);
+}
