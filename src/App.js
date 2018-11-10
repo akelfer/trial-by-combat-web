@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-
 import { connect } from 'react-redux';
-
 import './App.css';
 import AppNav from './components/AppNav/AppNav';
 import PostPage from './pages/PostPage/PostPage';

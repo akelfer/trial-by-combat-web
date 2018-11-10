@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Label, Input, Button } from 'reactstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-
 import { connect } from 'react-redux';
 import { setAvatar } from '../../redux/actions';
-
 import './Dashboard.css';
 import UserAPI from '../../api/UserAPI';
 

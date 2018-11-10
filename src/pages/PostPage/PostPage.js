@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
 import { setPost, setPosts } from '../../redux/actions';
-
 import './PostPage.css';
 import PostAPI from '../../api/PostAPI';
 import Post from '../../components/Post/Post';

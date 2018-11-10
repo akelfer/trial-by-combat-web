@@ -10,10 +10,8 @@ import {
   DropdownMenu,
   DropdownItem } from 'reactstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-
 import { connect } from 'react-redux';
 import { setUser } from '../../redux/actions';
-
 import './AppNav.css';
 import UserAPI from '../../api/UserAPI';
 

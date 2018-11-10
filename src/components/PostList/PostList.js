@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import './PostList.css';
 import PostTeaser from '../PostTeaser/PostTeaser';
 import PostVote from '../PostVote/PostVote';

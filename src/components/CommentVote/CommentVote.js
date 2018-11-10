@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
 import { setPost } from '../../redux/actions';
-
 import './CommentVote.css';
 import VoteAPI from '../../api/VoteAPI';
-
 import Upvote from '../../assets/up.png';
 import UpvoteColor from '../../assets/upColor.png';
 import Downvote from '../../assets/down.png';
@@ -47,7 +44,7 @@ class CommentVote extends Component {
             let updatedComments = [...this.props.comments]
             let commentIndex = updatedComments.findIndex(comment => comment.id === updatedVote.content_id)
             updatedComments[commentIndex].vote = updatedVote
-            updatedComments[commentIndex].score += 1
+            this.state.direction === -1 ? updatedComments[commentIndex].score += 2 : updatedComments[commentIndex].score += 1
 
             this.props.dispatch(setPost(this.props.post, updatedComments))
             this.state.direction === -1 ? this.setState({ direction: 1, score: this.state.score + 2 }) : this.setState({ direction: 1, score: this.state.score + 1 })
@@ -81,7 +78,7 @@ class CommentVote extends Component {
             let updatedComments = [...this.props.comments]
             let commentIndex = updatedComments.findIndex(comment => comment.id === updatedVote.content_id)
             updatedComments[commentIndex].vote = updatedVote
-            updatedComments[commentIndex].score -= 1
+            this.state.direction === 1 ? updatedComments[commentIndex].score -= 2 : updatedComments[commentIndex].score -= 1
 
             this.props.dispatch(setPost(this.props.post, updatedComments))
             this.state.direction === 1 ? this.setState({ direction: -1, score: this.state.score - 2 }) : this.setState({ direction: - 1, score: this.state.score - 1 })

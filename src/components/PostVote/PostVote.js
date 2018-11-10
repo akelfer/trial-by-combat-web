@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
 import { setPosts, setPost } from '../../redux/actions';
-
 import './PostVote.css';
 import VoteAPI from '../../api/VoteAPI';
-
 import Upvote from '../../assets/up.png';
 import UpvoteColor from '../../assets/upColor.png';
 import Downvote from '../../assets/down.png';

@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import { Form, Input } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 import TimeAgo from 'react-timeago';
-
 import { connect } from 'react-redux';
 import { setPosts, setPost } from '../../redux/actions';
-
 import './Post.css';
 import PostVote from '../../components/PostVote/PostVote';
 import PostAPI from '../../api/PostAPI';
-
 
 class Post extends Component { 
   state = {

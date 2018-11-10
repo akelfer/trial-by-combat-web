@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
-
 import { connect } from 'react-redux';
 import { setPosts } from '../../redux/actions';
-
 import './PostForm.css';
 import PostAPI from '../../api/PostAPI';
 import VoteAPI from '../../api/VoteAPI';
