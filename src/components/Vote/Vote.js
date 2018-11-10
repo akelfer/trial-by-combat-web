@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
+import { setPosts, setPost } from '../../redux/actions';
 
 import './Vote.css';
 import VoteAPI from '../../api/VoteAPI';
@@ -31,11 +32,37 @@ class Vote extends Component {
 
         VoteAPI.castVote(voteObj)
           .then(updatedVote => {
+            if (this.props.page === 'Home') {
+              let updatedPosts = [...this.props.posts]
+              let voteIndex = updatedPosts.findIndex(vote => vote.id === updatedVote.content_id)
+              updatedPosts[voteIndex].vote = updatedVote
+
+              this.props.dispatch(setPosts(updatedPosts))
+            } else {
+              let updatedPost = {...this.props.post}
+              updatedPost.vote = updatedVote
+
+              this.props.dispatch(setPost(updatedPost, this.props.comments))
+            }
+            
             this.setState({ direction: 0, score: this.state.score - 1 })
           })
       } else {
         VoteAPI.castVote(voteObj)
-          .then(updatedVote => {           
+          .then(updatedVote => {
+            if (this.props.page === 'Home') {
+              let updatedPosts = [...this.props.posts]
+              let voteIndex = updatedPosts.findIndex(vote => vote.id === updatedVote.content_id)
+              updatedPosts[voteIndex].vote = updatedVote
+
+              this.props.dispatch(setPosts(updatedPosts))
+            } else {
+              let updatedPost = {...this.props.post}
+              updatedPost.vote = updatedVote
+
+              this.props.dispatch(setPost(updatedPost, this.props.comments))
+            }
+            
             this.state.direction === -1 ? this.setState({ direction: 1, score: this.state.score + 2 }) : this.setState({ direction: 1, score: this.state.score + 1 })
         })
       }
@@ -53,11 +80,37 @@ class Vote extends Component {
 
         VoteAPI.castVote(voteObj)
           .then(updatedVote => {
+            if (this.props.page === 'Home') {
+              let updatedPosts = [...this.props.posts]
+              let voteIndex = updatedPosts.findIndex(vote => vote.id === updatedVote.content_id)
+              updatedPosts[voteIndex].vote = updatedVote
+
+              this.props.dispatch(setPosts(updatedPosts))
+            } else {
+              let updatedPost = {...this.props.post}
+              updatedPost.vote = updatedVote
+
+              this.props.dispatch(setPost(updatedPost, this.props.comments))
+            }
+            
             this.setState({ direction: 0, score: this.state.score + 1 })
           })
       } else {
         VoteAPI.castVote(voteObj)
           .then(updatedVote => {
+            if (this.props.page === 'Home') {
+              let updatedPosts = [...this.props.posts]
+              let voteIndex = updatedPosts.findIndex(vote => vote.id === updatedVote.content_id)
+              updatedPosts[voteIndex].vote = updatedVote
+
+              this.props.dispatch(setPosts(updatedPosts))
+            } else {
+              let updatedPost = {...this.props.post}
+              updatedPost.vote = updatedVote
+
+              this.props.dispatch(setPost(updatedPost, this.props.comments))
+            }
+            
             this.state.direction === 1 ? this.setState({ direction: -1, score: this.state.score - 2 }) : this.setState({ direction: - 1, score: this.state.score - 1 })
         })
       }      
@@ -71,7 +124,7 @@ class Vote extends Component {
       return (
         <div className="vote">
           <img onClick={this.handleUpvote} src={this.state.direction === 1 ? UpvoteColor : Upvote } alt="upvote"/>
-          <div className={`score${this.state.direction}`}>{this.state.score > 0 ? this.state.score : 0}</div>
+          <div className={`score${this.state.direction}`}>{this.state.score > 0 ? this.state.score : "\u2022"}</div>
           <img onClick={this.handleDownvote} src={this.state.direction === -1 ? DownvoteColor : Downvote } alt="downvote"/>
         </div>
       )
@@ -79,7 +132,7 @@ class Vote extends Component {
       return (
         <div className="vote">
           <img onClick={this.handleUpvote} src={Upvote} alt="upvote"/>
-          <div>{this.props.score > 0 ? this.props.score : 0}</div>
+          <div>{this.props.score > 0 ? this.props.score : "\u2022"}</div>
           <img onClick={this.handleDownvote} src={Downvote} alt="downvote"/>
         </div>
       )
