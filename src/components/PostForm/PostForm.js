@@ -7,6 +7,7 @@ import { setPosts } from '../../redux/actions';
 
 import './PostForm.css';
 import PostAPI from '../../api/PostAPI';
+import VoteAPI from '../../api/VoteAPI';
 
 class PostForm extends Component {
   state = {
@@ -29,11 +30,18 @@ class PostForm extends Component {
     } else {
       PostAPI.createPost(userObj)
         .then(newPost => {
-          this.props.dispatch(setPosts([newPost, ...this.props.posts]))
-          this.setState({ redirect: true })
-        })
-    }
-  }
+          let voteObj = {direction: 1, content_type: 'Post', content_id: newPost.id, avatar_id: this.props.avatar.id}
+
+          VoteAPI.castVote(voteObj)
+            .then(vote => {
+              newPost[vote] = vote
+
+              this.props.dispatch(setPosts([newPost, ...this.props.posts]))
+              this.setState({ redirect: true })
+          })
+         } 
+      )}
+    } 
 
   render() {
     if (this.state.redirect) {

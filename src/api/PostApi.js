@@ -13,8 +13,8 @@ const fetchPostsByAvatar = avatarId => {
     .then(res => res.json())
 }
 
-const fetchPost = postId => {
-  return fetch(`${POST_URL}/${postId}`)
+const fetchPost = (postId, avatarId) => {
+  return fetch(`${POST_URL}/${postId}?avatar_id=${avatarId}`)
     .then(res => res.json())
 }
 

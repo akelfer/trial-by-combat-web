@@ -12,11 +12,10 @@ import {
 import { LinkContainer } from 'react-router-bootstrap';
 
 import { connect } from 'react-redux';
-import { setUser, setPosts } from '../../redux/actions';
+import { setUser } from '../../redux/actions';
 
 import './AppNav.css';
 import UserAPI from '../../api/UserAPI';
-import PostAPI from '../../api/PostAPI';
 
 class AppNav extends Component {
   state = {
@@ -29,11 +28,6 @@ class AppNav extends Component {
       UserAPI.loginUser(userEmail)
         .then(userData => {
           this.props.dispatch(setUser(userData))
-          
-          if (this.props.avatar) {
-            PostAPI.fetchPostsByAvatar(this.props.avatar.id)
-              .then(postsByAvatar => this.props.dispatch(setPosts(postsByAvatar)))
-          }
         })
     }
   }

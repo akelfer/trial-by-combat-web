@@ -63,7 +63,7 @@ class Comment extends Component {
       <div className="comment">
         <p className="submissionInfo m-1"><span className="author">{this.props.comment.author}</span><span className="ml-2">{this.props.comment.score > 0 ? this.props.comment.score : 0} points</span><TimeAgo date={this.props.comment.created_at} className="ml-2" /><span className={this.props.avatar && this.props.avatar.id === this.props.comment.avatar_id ? "edit" : "hide"} onClick={this.handleEdit}>[Edit]</span><span className={this.props.avatar && this.props.avatar.id === this.props.comment.avatar_id ? "edit" : "hide"} onClick={this.handleDelete}>[Delete]</span></p>      
         <h5 className={this.state.editing ? "hide" : "show"}>{this.props.comment.body}</h5>
-        <Form className={this.state.editing ? "show" : "hide"} onSubmit={this.handleSubmit}>
+        <Form className={this.state.editing ? "show" : "hide"} onSubmit={this.handleSubmit} autoComplete="off">
           <Input id={`input${this.props.comment.id}`} name="body" value={this.state.body} onChange={this.handleChange} onBlur={this.handleSubmit}/>
         </Form>
       </div>

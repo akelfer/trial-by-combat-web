@@ -69,7 +69,7 @@ class Post extends Component {
     } else {
       return (
         <div className="postHeader">
-          <Vote score={this.props.post.score} vote={{direction: 1}}/>
+          <Vote score={this.props.post.score} vote={this.props.post.vote} contentType="Post" contentId={this.props.post.id}/>
           <div className="postContent">
             <h4>{this.props.post.title}<span className={this.props.avatar && this.props.avatar.id === this.props.post.avatar_id ? "edit" : "hide"} onClick={this.handleEdit}>[Edit]</span><span className={this.props.avatar && this.props.avatar.id === this.props.post.avatar_id ? "edit" : "hide"} onClick={this.handleDelete}>[Delete]</span></h4>
             <p className="submissionInfo ml-1">Submitted <TimeAgo date={this.props.post.created_at}/> by <span className="author">{this.props.post.author}</span></p>
@@ -81,7 +81,6 @@ class Post extends Component {
         </div>
       )
     }
-    
   }
 }
 

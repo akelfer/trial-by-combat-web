@@ -21,9 +21,9 @@ class Dashboard extends Component {
     e.preventDefault()
 
     if (!this.props.user) {
-      alert("Please sign in first")
+      alert("Please sign in first!")
     } else if (this.state.name === '') {
-      alert("Name cannot be empty")
+      alert("Name cannot be empty!")
     } else {
       UserAPI.createAvatar(this.props.user.id, this.state.name)
         .then(newAvatar => {

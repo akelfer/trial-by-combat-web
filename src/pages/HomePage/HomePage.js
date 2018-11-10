@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { setPosts } from '../../redux/actions';
+import { setPosts, setPost } from '../../redux/actions';
 
 import './HomePage.css';
 import PostAPI from '../../api/PostAPI';
@@ -9,12 +9,32 @@ import PostList from '../../components/PostList/PostList';
 import Dashboard from '../../components/Dashboard/Dashboard';
 
 class HomePage extends Component {
+  state = {
+    fetchedWithVotes: false
+  }
+
   componentDidMount() {
-    if (!this.props.posts) {
-      PostAPI.fetchPosts()
+    if (this.props.avatar) {
+      PostAPI.fetchPostsByAvatar(this.props.avatar.id)
         .then(posts => {
           this.props.dispatch(setPosts(posts))
       })
+    } else {
+      PostAPI.fetchPostsByAvatar(null)
+        .then(posts => {
+          this.props.dispatch(setPosts(posts))
+      })
+    }
+    this.props.dispatch(setPost({}, this.props.comments))
+  }
+
+  componentDidUpdate() {
+    if (this.props.avatar && !this.state.fetchedWithVotes) {
+      PostAPI.fetchPostsByAvatar(this.props.avatar.id)
+        .then(posts => {
+          this.props.dispatch(setPosts(posts))
+          this.setState({ fetchedWithVotes: true })
+        })
     }
   }
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { setPosts } from '../../redux/actions';
 
 import './Vote.css';
 import VoteAPI from '../../api/VoteAPI';
@@ -12,63 +11,62 @@ import DownvoteColor from '../../assets/downColor.png';
 
 class Vote extends Component {
   state = {
-    direction: this.props.vote.direction,
-    score: this.props.score
+    direction: this.props.vote && this.props.vote.direction,
+    score: this.props.score,
+    fetchedWithVotes: false
+  }
+
+  componentDidUpdate() {
+    if (this.props.vote && !this.state.fetchedWithVotes) {
+      this.setState({ direction: this.props.vote.direction, score: this.props.score, fetchedWithVotes: true })
+    }
   }
 
   handleUpvote = () => {
-    let voteObj = {direction: 1, content_type: this.props.contentType, content_id: this.props.contentId, avatar_id: this.props.avatar.id}
+    if (this.props.avatar) {
+      let voteObj = {direction: 1, content_type: this.props.contentType, content_id: this.props.contentId, avatar_id: this.props.avatar.id}
     
-    if (this.state.direction === 1) {
-      voteObj['direction'] = 0
+      if (this.state.direction === 1) {
+        voteObj['direction'] = 0
 
-      VoteAPI.castVote(voteObj)
-        .then(updatedVote => {
-          let updatedPosts = [...this.props.posts]
-          updatedPosts[this.props.postIndex].vote = updatedVote
-
-          this.props.dispatch(setPosts(updatedPosts))
-          
-          this.setState({ direction: 0, score: this.state.score - 1 })
+        VoteAPI.castVote(voteObj)
+          .then(updatedVote => {
+            this.setState({ direction: 0, score: this.state.score - 1 })
+          })
+      } else {
+        VoteAPI.castVote(voteObj)
+          .then(updatedVote => {           
+            this.state.direction === -1 ? this.setState({ direction: 1, score: this.state.score + 2 }) : this.setState({ direction: 1, score: this.state.score + 1 })
         })
+      }
     } else {
-      VoteAPI.castVote(voteObj)
-        .then(updatedVote => {
-          let updatedPosts = [...this.props.posts]
-          updatedPosts[this.props.postIndex].vote = updatedVote
-
-          this.setState({ direction: 1, score: this.state.score + 1 })
-      })
-    }      
+      alert('Only active avatars can vote!')
+    }
   }
   
   handleDownvote = () => {
-    let voteObj = {direction: -1, content_type: this.props.contentType, content_id: this.props.contentId, avatar_id: this.props.avatar.id}
+    if (this.props.avatar) {
+      let voteObj = {direction: -1, content_type: this.props.contentType, content_id: this.props.contentId, avatar_id: this.props.avatar.id}
     
-    if (this.state.direction === -1) {
-      voteObj['direction'] = 0
+      if (this.state.direction === -1) {
+        voteObj['direction'] = 0
 
-      VoteAPI.castVote(voteObj)
-        .then(updatedVote => {
-          let updatedPosts = [...this.props.posts]
-          updatedPosts[this.props.postIndex].vote = updatedVote
-
-          this.props.dispatch(setPosts(updatedPosts))
-          
-          this.setState({ direction: 0, score: this.state.score + 1 })
+        VoteAPI.castVote(voteObj)
+          .then(updatedVote => {
+            this.setState({ direction: 0, score: this.state.score + 1 })
+          })
+      } else {
+        VoteAPI.castVote(voteObj)
+          .then(updatedVote => {
+            this.state.direction === 1 ? this.setState({ direction: -1, score: this.state.score - 2 }) : this.setState({ direction: - 1, score: this.state.score - 1 })
         })
+      }      
     } else {
-      VoteAPI.castVote(voteObj)
-        .then(updatedVote => {
-          let updatedPosts = [...this.props.posts]
-          updatedPosts[this.props.postIndex].vote = updatedVote
-
-          this.setState({ direction: - 1, score: this.state.score - 1 })
-      })
-    }      
+      alert('Only active avatars can vote!')
+    }
   }
 
-  render() {    
+  render() {
     if (this.props.vote) {
       return (
         <div className="vote">
