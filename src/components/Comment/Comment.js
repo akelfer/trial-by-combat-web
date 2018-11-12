@@ -41,7 +41,7 @@ class Comment extends Component {
     })
 
     this.setState({ editing: false })
-    }    
+    }
   }
 
   handleDelete = () => {
@@ -57,7 +57,6 @@ class Comment extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <div className="comment">
         <p className="submissionInfo m-1"><span className="author">{this.props.comment.author}</span><span className="ml-2">{this.props.comment.score} points</span><TimeAgo date={this.props.comment.created_at} className="ml-2" /><span className={this.props.avatar && this.props.avatar.id === this.props.comment.avatar_id ? "edit" : "hide"} onClick={this.handleEdit}>[Edit]</span><span className={this.props.avatar && this.props.avatar.id === this.props.comment.avatar_id ? "edit" : "hide"} onClick={this.handleDelete}>[Delete]</span></p>      

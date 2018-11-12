@@ -90,7 +90,6 @@ class CommentVote extends Component {
   }
 
   render() {
-    console.log(this.props)
     if (this.props.vote) {
       return (
         <div className="commentVote">

@@ -53,7 +53,7 @@ class AppNav extends Component {
           <NavbarToggler onClick={this.toggleNav} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem>
+              <NavItem className={this.props.avatar ? null : "hide" }>
                 <LinkContainer to="/enemies">
                   <NavLink>Enemies</NavLink>
                 </LinkContainer>

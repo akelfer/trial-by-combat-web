@@ -44,7 +44,6 @@ class CommentForm extends Component {
   } 
 
   render() {
-    console.log(this.state)
     return (
       <div className="commentForm m-3">
         <Form autoComplete="off" onSubmit={this.handleSubmit}>

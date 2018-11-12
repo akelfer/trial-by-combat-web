@@ -29,8 +29,7 @@ class EnemyList extends Component {
     return this.state.enemies.map(enemy => {
       return (
         <div key={enemy.id} className="m-3">
-          <h3>{enemy.name}</h3>
-          <p>{enemy.reputation}</p>
+          <div className="enemy"><span className="enemyName">{enemy.name}</span> ({enemy.reputation})</div>
         </div>
       )
     })
