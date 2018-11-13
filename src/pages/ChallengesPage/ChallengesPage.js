@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ActionCableProvider } from 'react-actioncable-provider';
 import './ChallengesPage.css';
 import UserAPI from '../../api/UserAPI';
 import ChallengeList from '../../components/ChallengeList/ChallengeList';
-import { API_WS_ROOT } from '../../constants';
 
 class ChallengesPage extends Component {
   state = {
@@ -38,7 +36,6 @@ class ChallengesPage extends Component {
 
   render() {
     return (
-      <ActionCableProvider url={API_WS_ROOT}>
         <div className="challengesPage m-3">
           <div className="enemyList">
             <h5>Your Enemies:</h5>
@@ -46,7 +43,6 @@ class ChallengesPage extends Component {
           </div>
           <ChallengeList />
         </div>
-      </ActionCableProvider>
     )
   }
 }

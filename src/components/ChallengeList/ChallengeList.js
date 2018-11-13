@@ -1,19 +1,30 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { ActionCable } from 'react-actioncable-provider';
 import ChallengeAPI from '../../api/ChallengeAPI';
 import ChallengeForm from '../ChallengeForm/ChallengeForm';
 import MessagesArea from '../MessagesArea/MessagesArea';
 import Cable from '../Cable/Cable';
 
-export default class ChallengeList extends Component {
+class ChallengeList extends Component {
   state = {
     challenges: [],
-    activeChallenge: null
+    activeChallenge: null,
+    fetchedWithAvatar: false
   }
 
   componentDidMount() {
-    ChallengeAPI.fetchChallenges()
+    if (this.props.avatar) {
+      ChallengeAPI.fetchChallenges(this.props.avatar.id)
       .then(challenges => this.setState({ challenges: challenges }))
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.avatar && !this.state.fetchedWithAvatar) {
+      ChallengeAPI.fetchChallenges(this.props.avatar.id)
+        .then(challenges => this.setState({ challenges: challenges, fetchedWithAvatar: true }))
+    }
   }
 
   handleClick = id => {
@@ -21,20 +32,13 @@ export default class ChallengeList extends Component {
   }
 
   handleReceivedChallenge = response => { 
-    console.log(response)
-
-    const { challenge } = response
-    
-    this.setState({ challenges: [...this.state.challenges, challenge] })
+    this.setState({ challenges: [...this.state.challenges, response.challenge] })
   }
 
   handleReceivedMessage = response => {
-    console.log(response)
-
-    const { message } = response
     const challenges = [...this.state.challenges]
-    const challenge = challenges.find(challenge => challenge.id === message.challenge_id)
-    challenge.messages = [...challenge.messages, message]
+    const challenge = challenges.find(challenge => challenge.id === response.message.challenge_id)
+    challenge.messages = [...challenge.messages, response.message]
 
     this.setState({ challenges: challenges })
   }
@@ -63,3 +67,9 @@ const mapChallenges = (challenges, handleClick) => {
     return <li key={challenge.id} onClick={() => handleClick(challenge.id)}>{challenge.title}</li>
   })
 }
+
+const mapStateToProps = state => {
+  return state
+}
+
+export default connect(mapStateToProps)(ChallengeList);

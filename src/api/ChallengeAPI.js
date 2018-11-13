@@ -1,7 +1,7 @@
 import { API_ROOT, HEADERS } from '../constants';
 
-const fetchChallenges = () => {
-  return fetch(`${API_ROOT}/challenges`)
+const fetchChallenges = avatarId => {
+  return fetch(`${API_ROOT}/challenges?avatar_id=${avatarId}`)
     .then(res => res.json())
 }
 
