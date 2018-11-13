@@ -1,25 +1,25 @@
-const COMMENT_URL = 'http://localhost:3000/comments'
+import { API_ROOT, HEADERS } from '../constants';
 
 const createComment = commentObj => {
-  return fetch(`${COMMENT_URL}`, {
+  return fetch(`${API_ROOT}/comments`, {
     method: 'POST',
-    headers: {'content-type': 'application/json'},
+    headers: HEADERS,
     body: JSON.stringify(commentObj)
   })
     .then(res => res.json())
 } 
 
 const editComment = (commentObj, commentId) => {
-  return fetch(`${COMMENT_URL}/${commentId}`, {
+  return fetch(`${API_ROOT}/comments/${commentId}`, {
     method: 'PUT',
-    headers: {'content-type': 'application/json'},
+    headers: HEADERS,
     body: JSON.stringify(commentObj)
   })
     .then(res => res.json())
 }
 
 const deleteComment = commentId => {
-  return fetch(`${COMMENT_URL}/${commentId}`, {
+  return fetch(`${API_ROOT}/comments/${commentId}`, {
     method: 'DELETE'
   })
     .then(res => res.json())

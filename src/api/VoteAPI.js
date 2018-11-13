@@ -1,9 +1,9 @@
-const VOTE_URL = 'http://localhost:3000/votes'
+import { API_ROOT, HEADERS } from '../constants';
 
 const castVote = voteObj => {
-  return fetch(`${VOTE_URL}`, {
+  return fetch(`${API_ROOT}/votes`, {
     method: 'POST',
-    headers: {'content-type': 'application/json'},
+    headers: HEADERS,
     body: JSON.stringify(voteObj)
   })
     .then(res => res.json())

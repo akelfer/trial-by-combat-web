@@ -1,38 +1,38 @@
-const POST_URL = 'http://localhost:3000/posts'
+import { API_ROOT, HEADERS } from '../constants';
 
 const fetchPosts = avatarId => {
-  return fetch(`${POST_URL}/${avatarId}`, {
+  return fetch(`${API_ROOT}/posts/${avatarId}`, {
     method: 'POST',
-    headers: {'content-type': 'application/json'}
+    headers: HEADERS
   })
     .then(res => res.json())
 }
 
 const fetchPost = (postId, avatarId) => {
-  return fetch(`${POST_URL}/${postId}?avatar_id=${avatarId}`)
+  return fetch(`${API_ROOT}/posts/${postId}?avatar_id=${avatarId}`)
     .then(res => res.json())
 }
 
 const createPost = postObj => {
-  return fetch(`${POST_URL}`, {
+  return fetch(`${API_ROOT}/posts`, {
     method: 'POST',
-    headers: {'content-type': 'application/json'},
+    headers: HEADERS,
     body: JSON.stringify(postObj)
   })
     .then(res => res.json())
 }
 
 const updatePost = (postObj, postId) => {
-  return fetch(`${POST_URL}/${postId}`, {
+  return fetch(`${API_ROOT}/posts/${postId}`, {
     method: 'PUT',
-    headers: {'content-type': 'application/json'},
+    headers: HEADERS,
     body: JSON.stringify(postObj)
   })
     .then(res => res.json())
 }
 
 const deletePost = post => {
-  return fetch(`${POST_URL}/${post.id}`, {
+  return fetch(`${API_ROOT}/posts/${post.id}`, {
     method: 'DELETE'
   })
     .then(res => res.json())

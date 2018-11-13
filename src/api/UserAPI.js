@@ -1,25 +1,25 @@
-const BASE_URL = 'http://localhost:3000'
+import { API_ROOT, HEADERS } from '../constants';
 
 const loginUser = email => {
-  return fetch(`${BASE_URL}/users`, {
+  return fetch(`${API_ROOT}/users`, {
     method: 'POST',
-    headers: {'content-type': 'application/json'},
+    headers: HEADERS,
     body: JSON.stringify({email: email})
   })
     .then(res => res.json())
 }
 
 const createAvatar = (userId, name) => {
-  return fetch(`${BASE_URL}/avatars`, {
+  return fetch(`${API_ROOT}/avatars`, {
     method: 'POST',
-    headers: {'content-type': 'application/json'},
+    headers: HEADERS,
     body: JSON.stringify({user_id: userId, name: name})
   })
     .then(res => res.json())
 }
 
 const fetchEnemies = avatarId => {
-  return fetch(`${BASE_URL}/enemies?avatar_id=${avatarId}`)
+  return fetch(`${API_ROOT}/enemies?avatar_id=${avatarId}`)
     .then(res => res.json())
 }
 

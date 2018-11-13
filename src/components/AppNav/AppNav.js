@@ -54,8 +54,8 @@ class AppNav extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem className={this.props.avatar ? null : "hide" }>
-                <LinkContainer to="/enemies">
-                  <NavLink>Enemies</NavLink>
+                <LinkContainer to="/challenges">
+                  <NavLink>Challenges</NavLink>
                 </LinkContainer>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>

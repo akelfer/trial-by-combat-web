@@ -5,8 +5,8 @@ import './App.css';
 import AppNav from './components/AppNav/AppNav';
 import PostPage from './pages/PostPage/PostPage';
 import HomePage from './pages/HomePage/HomePage';
+import ChallengesPage from './pages/ChallengesPage/ChallengesPage';
 import PostForm from './components/PostForm/PostForm';
-import EnemyList from './components/EnemyList/EnemyList';
 
 class App extends Component {  
   render() {
@@ -17,7 +17,7 @@ class App extends Component {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/posts/:post_id" component={PostPage} />
           <Route exact path="/create-post" component={PostForm} />
-          <Route exact path="/enemies" component={EnemyList} />
+          <Route exact path="/challenges" component={ChallengesPage} />
         </div>
       </BrowserRouter>
     )

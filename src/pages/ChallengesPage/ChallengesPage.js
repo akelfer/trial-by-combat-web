@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
-
-import './EnemyList.css';
+import { ActionCableProvider } from 'react-actioncable-provider';
+import './ChallengesPage.css';
 import UserAPI from '../../api/UserAPI';
+import ChallengeList from '../../components/ChallengeList/ChallengeList';
+import { API_WS_ROOT } from '../../constants';
 
-class EnemyList extends Component {
+class ChallengesPage extends Component {
   state = {
     enemies: [],
     fetchedWithAvatar: false
@@ -37,10 +38,15 @@ class EnemyList extends Component {
 
   render() {
     return (
-      <div className="enemyList m-3">
-        <h2>Your Enemies:</h2>
-        {this.displayEnemies()}
-      </div>
+      <ActionCableProvider url={API_WS_ROOT}>
+        <div className="challengesPage m-3">
+          <div className="enemyList">
+            <h5>Your Enemies:</h5>
+            {this.displayEnemies()}
+          </div>
+          <ChallengeList />
+        </div>
+      </ActionCableProvider>
     )
   }
 }
@@ -49,4 +55,4 @@ const mapStateToProps = state => {
   return state
 }
 
-export default connect(mapStateToProps)(EnemyList);
+export default connect(mapStateToProps)(ChallengesPage);

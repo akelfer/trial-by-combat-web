@@ -1,9 +1,0 @@
-div.enemy {
-  color: grey;
-}
-
-span.enemyName {
-  cursor: pointer;
-  font-size: 24px;
-  color: darkred;
-}
