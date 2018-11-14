@@ -15,7 +15,10 @@ class ChallengeList extends Component {
   componentDidMount() {
     if (this.props.avatar) {
       ChallengeAPI.fetchChallenges(this.props.avatar.id)
-      .then(challenges => this.setState({ challenges: challenges }))
+      .then(challenges => {
+        console.log(challenges)
+        this.setState({ challenges: challenges })
+      })
     }
   }
 
@@ -37,7 +40,7 @@ class ChallengeList extends Component {
   handleReceivedMessage = response => {
     const challenges = [...this.state.challenges]
     const challenge = challenges.find(challenge => challenge.id === response.message.challenge_id)
-    challenge.messages = [...challenge.messages, response.message]
+    challenge.messages = [...challenge.messages, {...response.message, speaker: response.speaker}]
 
     this.setState({ challenges: challenges })
   }

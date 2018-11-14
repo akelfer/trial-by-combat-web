@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Form, Label, Input, Button } from 'reactstrap';
 import ChallengeAPI from '../../api/ChallengeAPI';
 
-export default class MessageForm extends Component {
+class MessageForm extends Component {
   state = {
     text: '',
     challenge_id: this.props.challenge_id
@@ -19,7 +20,7 @@ export default class MessageForm extends Component {
   handleSubmit = e => {
     e.preventDefault()
 
-    const messageObj = {text: this.state.text, avatar_id: 11, challenge_id: this.state.challenge_id}
+    const messageObj = {text: this.state.text, avatar_id: this.props.avatar.id, challenge_id: this.state.challenge_id}
 
     ChallengeAPI.createMessage(messageObj)
 
@@ -39,3 +40,9 @@ export default class MessageForm extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return state
+}
+
+export default connect(mapStateToProps)(MessageForm);

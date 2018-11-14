@@ -1,6 +1,7 @@
-/* #F19069
-#9097F8 */
-
 .hide {
   display: none;
+}
+
+ul {
+  list-style-type: none;
 }
