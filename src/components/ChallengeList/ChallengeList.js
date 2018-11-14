@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ActionCable } from 'react-actioncable-provider';
 import ChallengeAPI from '../../api/ChallengeAPI';
-import ChallengeForm from '../ChallengeForm/ChallengeForm';
 import MessagesArea from '../MessagesArea/MessagesArea';
 import Cable from '../Cable/Cable';
 
@@ -51,7 +50,6 @@ class ChallengeList extends Component {
         {this.state.challenges.length ? <Cable challenges={challenges} handleReceivedMessage={this.handleReceivedMessage} /> : null }
         <h5>Challenges: </h5>
         <ul>{mapChallenges(challenges, this.handleClick)}</ul>
-        <ChallengeForm />
         {activeChallenge ? <MessagesArea challenge={findActiveChallenge(challenges, activeChallenge)} /> : null}
       </div>
     )

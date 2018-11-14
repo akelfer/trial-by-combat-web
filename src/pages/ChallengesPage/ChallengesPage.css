@@ -9,12 +9,3 @@ div.enemyList {
   border-right: 1px solid #E5EAED;
 }
 
-div.enemy {
-  color: grey;
-}
-
-span.enemyName {
-  cursor: pointer;
-  font-size: 20px;
-  color: darkred;
-}

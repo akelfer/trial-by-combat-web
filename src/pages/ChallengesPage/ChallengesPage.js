@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import './ChallengesPage.css';
 import UserAPI from '../../api/UserAPI';
 import ChallengeList from '../../components/ChallengeList/ChallengeList';
+import Enemy from '../../components/Enemy/Enemy';
 
 class ChallengesPage extends Component {
   state = {
@@ -26,11 +27,7 @@ class ChallengesPage extends Component {
 
   displayEnemies = () => {
     return this.state.enemies.map(enemy => {
-      return (
-        <div key={enemy.id} className="m-3">
-          <div className="enemy"><span className="enemyName">{enemy.name}</span> ({enemy.reputation})</div>
-        </div>
-      )
+      return <Enemy key={enemy.id} enemy={enemy} avatar={this.props.avatar}/>
     })
   }
 
