@@ -1,0 +1,14 @@
+div.messagesArea > ul {
+  height: 100%;
+  overflow: auto;
+  overflow-wrap: break-word;
+  margin: 0;
+}
+
+span.speaker {
+  color: #0A167E;
+}
+
+span.target {
+  color: darkred;
+}

@@ -12,6 +12,7 @@ class PostPage extends Component {
   state = {
     fetchedWithVotes: false
   }
+  
   componentDidMount() {
     if (this.props.avatar) {
       PostAPI.fetchPost(this.props.match.params.post_id, this.props.avatar.id).then(data => {

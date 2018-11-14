@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Label, Input, Button } from 'reactstrap';
+import { Form, Input } from 'reactstrap';
 import ChallengeAPI from '../../api/ChallengeAPI';
 
 class MessageForm extends Component {
@@ -29,14 +29,10 @@ class MessageForm extends Component {
 
   render() {
     return (
-      <div className="messageForm">
-        <Form onSubmit={this.handleSubmit} >
-          <Label>New Message:</Label>
+        <Form className="messageForm" onSubmit={this.handleSubmit} autoComplete="off" >
           <br/>
-          <Input onChange={this.handleChange} value={this.state.text} />
-          <Button className="btn-sm mt-2">Submit</Button>
+          <Input id="messageInput" onChange={this.handleChange} value={this.state.text} autoFocus />
         </Form>
-      </div>
     )
   }
 }

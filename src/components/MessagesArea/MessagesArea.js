@@ -1,23 +1,20 @@
 import React from 'react';
-import MessageForm from '../MessageForm/MessageForm';
+import './MessagesArea.css';
 
-const MessagesArea = ({ challenge: {id, title, messages} }) => {
+const MessagesArea = ({ challenge: {id, title, messages}, avatar }) => {
   return (
     <div className="messagesArea">
-      <h5>{title}</h5>
-      <ul>{orderedMessages(messages)}</ul>
-      <MessageForm challenge_id={id} />
+      <ul>{orderedMessages(messages, avatar)}</ul>
     </div>
   )
 }
 
 export default MessagesArea;
 
-const orderedMessages = messages => {
+const orderedMessages = (messages, avatar) => {
   const sortedMessages = messages.sort((a, b) => new Date(a.created_at) - new Date(b.created_at))
 
   return sortedMessages.map(message => {
-    console.log(message)
-    return <li key={message.id}>[{message.speaker}] {message.text}</li>
+    return <li key={message.id}><span className={message.avatar_id === avatar.id ? "speaker" : "target"}>[{message.speaker}] </span>{message.text}</li>
   })
 }
