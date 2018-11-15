@@ -6,13 +6,10 @@ import MessageForm from '../MessageForm/MessageForm';
 
 class ChallengeModal extends React.Component {
   render() {
-    console.log(this.props.challenge)
     return (
       <div>
         <Modal isOpen={this.props.modal} toggle={this.props.handleToggleModal} className={this.props.className}>
-          <ModalHeader toggle={this.props.handleToggleModal}>
-            The Arena - <span className="modalSubheader">{this.props.challenge && this.props.challenge.title}</span>
-          </ModalHeader>
+          <ModalHeader toggle={this.props.handleToggleModal}>The Arena</ModalHeader>
           <ModalBody>
             <MessagesArea challenge={this.props.challenge} avatar={this.props.avatar} />
           </ModalBody>

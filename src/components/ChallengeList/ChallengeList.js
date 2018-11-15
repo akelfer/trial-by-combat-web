@@ -18,27 +18,35 @@ class ChallengeList extends Component {
     if (this.props.avatar) {
       ChallengeAPI.fetchChallenges(this.props.avatar.id)
       .then(challenges => {
-        console.log(challenges)
         this.setState({ challenges: challenges })
       })
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(_prevProps, prevState) {
     if (this.props.avatar && !this.state.fetchedWithAvatar) {
       ChallengeAPI.fetchChallenges(this.props.avatar.id)
         .then(challenges => this.setState({ challenges: challenges, fetchedWithAvatar: true }))
     }
+
+    if (prevState.modal && !this.state.modal) {
+      const messageObj = {text: 'has left the arena!', avatar_id: this.props.avatar.id, challenge_id: this.state.activeChallenge}
+
+      ChallengeAPI.createMessage(messageObj)
+    }
+    
   }
 
   handleClick = id => {
-    this.handleToggleModal()
-
-    this.setState({ activeChallenge: id })
-
+    this.setState({ activeChallenge: id, modal: true })
+  
     setTimeout(() => {
+      const messageObj = {text: 'has entered the arena!', avatar_id: this.props.avatar.id, challenge_id: this.state.activeChallenge}
+  
+      ChallengeAPI.createMessage(messageObj)
+
       document.getElementById("messageInput").focus()
-    }, 250)
+    })
   }
 
   handleReceivedChallenge = response => { 
@@ -55,11 +63,23 @@ class ChallengeList extends Component {
 
   handleToggleModal = () => {
     this.setState({ modal: !this.state.modal })
+
+    if (!this.state.modal) {
+      const messageObj = {text: 'has left the arena!', avatar_id: this.props.avatar.id, challenge_id: this.state.activeChallenge}
+      ChallengeAPI.createMessage(messageObj)
+    }
   }
 
   displayChallenges = () => {
     return this.state.challenges.map(challenge => {
-      return <li className="challenge" key={challenge.id} onClick={() => this.handleClick(challenge.id)}>{challenge.title}</li>
+      let title = ''
+      if (challenge.avatar_id === this.props.avatar.id) {
+        title = challenge.title.split(',')[0]
+      } else {
+        title = challenge.title.split(',')[1]
+      }
+      
+      return <div className="challenge m-3" key={challenge.id} onClick={() => this.handleClick(challenge.id)}><span className={challenge.avatar_id === this.props.avatar.id ? "challenger" : "challengee"}>{title}</span></div>
     })
   }
 
@@ -69,7 +89,7 @@ class ChallengeList extends Component {
       <div className="challengeList ml-3">
         <ActionCable channel={{channel: 'ChallengesChannel'}} onReceived={this.handleReceivedChallenge} />
         {this.state.challenges.length ? <Cable challenges={challenges} handleReceivedMessage={this.handleReceivedMessage} /> : null }
-        <h5>Challenges: </h5>
+        <h5>Active Challenges: </h5>
         {this.displayChallenges()}
         <ChallengeModal modal={this.state.modal} handleToggleModal={this.handleToggleModal} challenge={findActiveChallenge(challenges, activeChallenge)} avatar={this.props.avatar}/>
       </div>
