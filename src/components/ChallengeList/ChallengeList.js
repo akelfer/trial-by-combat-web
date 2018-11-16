@@ -29,10 +29,14 @@ class ChallengeList extends Component {
         .then(challenges => this.setState({ challenges: challenges, fetchedWithAvatar: true }))
     }
 
-    if (prevState.modal && !this.state.modal) {
+    if (prevState.modal && !this.state.modal && this.state.activeChallenge) {
       const messageObj = {text: 'has left the arena!', avatar_id: this.props.avatar.id, challenge_id: this.state.activeChallenge}
 
       ChallengeAPI.createMessage(messageObj)
+    }
+
+    if (prevState.activeChallenge && !this.state.activeChallenge) {
+      window.location.reload()
     }
   }
 
@@ -55,7 +59,10 @@ class ChallengeList extends Component {
   handleReceivedMessage = response => {
     if (response.message.text === "THE ARENA WILL CLOSE IN 5 SECONDS!") {
       setTimeout(() => {
-        this.setState({ modal: false })
+        ChallengeAPI.deleteChallenge(this.state.activeChallenge)
+        .then(_response => {
+          this.setState({ modal: false, activeChallenge: null })
+        })
       }, 4500)
     }
 

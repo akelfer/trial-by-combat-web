@@ -85,7 +85,7 @@ class ChallengeModal extends Component {
         <Modal isOpen={this.props.modal} toggle={this.props.handleToggleModal} className={this.props.className}>
           <ModalHeader toggle={this.props.handleToggleModal}>The Arena</ModalHeader>
           <ModalBody>
-            <MessagesArea challenge={this.props.challenge} avatar={this.props.avatar} />
+            {this.props.challenge ? <MessagesArea challenge={this.props.challenge} avatar={this.props.avatar} /> : null}
           </ModalBody>
           <ModalFooter>
             <div className="rps">
