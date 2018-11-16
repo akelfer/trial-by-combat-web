@@ -18,7 +18,7 @@ div.modal-body {
 }
 
 div.modal-header {
-  background-color: rgb(18, 51, 51);
+  background-color: rgb(27, 83, 83);
   color: white;
 }
 
@@ -34,4 +34,27 @@ div.modal-footer {
   flex-direction: column;
   align-items: stretch;
   margin-top: -24px;
+}
+
+div.rps {
+  position: absolute;
+  bottom: 82px;
+  right: 28px;
+  display: flex;
+  flex-direction: row;
+}
+
+div.rps > img {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  opacity: 0.4;
+}
+
+div.rps > img.selected {
+  opacity: 1;
+}
+
+div.rps > img:hover {
+  opacity: 1;
 }

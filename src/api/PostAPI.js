@@ -22,7 +22,7 @@ const createPost = postObj => {
     .then(res => res.json())
 }
 
-const updatePost = (postObj, postId) => {
+const updatePost = (postId, postObj) => {
   return fetch(`${API_ROOT}/posts/${postId}`, {
     method: 'PUT',
     headers: HEADERS,

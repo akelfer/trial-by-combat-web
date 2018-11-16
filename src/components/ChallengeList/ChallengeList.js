@@ -11,7 +11,7 @@ class ChallengeList extends Component {
     challenges: [],
     activeChallenge: null,
     fetchedWithAvatar: false,
-    modal: false
+    modal: false,
   }
 
   componentDidMount() {
@@ -34,7 +34,6 @@ class ChallengeList extends Component {
 
       ChallengeAPI.createMessage(messageObj)
     }
-    
   }
 
   handleClick = id => {
@@ -46,7 +45,7 @@ class ChallengeList extends Component {
       ChallengeAPI.createMessage(messageObj)
 
       document.getElementById("messageInput").focus()
-    })
+    }, 250)
   }
 
   handleReceivedChallenge = response => { 
@@ -54,6 +53,12 @@ class ChallengeList extends Component {
   }
 
   handleReceivedMessage = response => {
+    if (response.message.text === "THE ARENA WILL CLOSE IN 5 SECONDS!") {
+      setTimeout(() => {
+        this.setState({ modal: false })
+      }, 4500)
+    }
+
     const challenges = [...this.state.challenges]
     const challenge = challenges.find(challenge => challenge.id === response.message.challenge_id)
     challenge.messages = [...challenge.messages, {...response.message, speaker: response.speaker}]
@@ -85,13 +90,14 @@ class ChallengeList extends Component {
 
   render() {
     const { challenges, activeChallenge } = this.state
+
     return (
       <div className="challengeList ml-3">
         <ActionCable channel={{channel: 'ChallengesChannel'}} onReceived={this.handleReceivedChallenge} />
         {this.state.challenges.length ? <Cable challenges={challenges} handleReceivedMessage={this.handleReceivedMessage} /> : null }
         <h5>Active Challenges: </h5>
         {this.displayChallenges()}
-        <ChallengeModal modal={this.state.modal} handleToggleModal={this.handleToggleModal} challenge={findActiveChallenge(challenges, activeChallenge)} avatar={this.props.avatar}/>
+        <ChallengeModal modal={this.state.modal} handleToggleModal={this.handleToggleModal} challenge={findActiveChallenge(challenges, activeChallenge)} avatar={this.props.avatar} />
       </div>
     )
   }

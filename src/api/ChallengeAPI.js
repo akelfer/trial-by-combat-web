@@ -13,6 +13,15 @@ const createChallenge = challengeObj => {
   })
 }
 
+const throwRPS = (challengeId, challengeObj) => {
+  return fetch(`${API_ROOT}/challenges/${challengeId}`, {
+    method: 'PUT',
+    headers: HEADERS,
+    body: JSON.stringify(challengeObj)
+  })
+    .then(res => res.json())
+}
+
 const createMessage = messageObj => {
   return fetch(`${API_ROOT}/messages`, {
     method: 'POST',
@@ -21,8 +30,11 @@ const createMessage = messageObj => {
   })
 }
 
+
+
 export default {
   fetchChallenges: fetchChallenges,
   createChallenge: createChallenge,
+  throwRPS: throwRPS,
   createMessage: createMessage
 }

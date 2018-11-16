@@ -33,7 +33,7 @@ class Post extends Component {
     } else {
       const postObj = {body: this.state.body, avatar_id: this.props.avatar.id}
 
-      PostAPI.updatePost(postObj, this.props.post.id).then(postData => {
+      PostAPI.updatePost(this.props.post.id, postObj).then(postData => {
         this.props.dispatch(setPost(postData.post, this.props.comments))
         this.setState({ editing: false })
       })
@@ -46,8 +46,7 @@ class Post extends Component {
 
   handleDelete = () => {
     if (window.confirm('Are you sure you want to delete this post?')) {
-      PostAPI.deletePost(this.props.post).then(response => {
-        console.log(response)
+      PostAPI.deletePost(this.props.post).then(_response => {
         let updatedPosts = [...this.props.posts]
         let postIndex = updatedPosts.findIndex(post => post.id === this.props.post.id)
 
